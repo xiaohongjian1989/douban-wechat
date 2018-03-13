@@ -18,6 +18,7 @@
   var isFinsh = [false, false, false];
   var lock = "";
   var getDetailsLock = ""
+  var clickLock = ""
   var val = ""
   var id = ""
   var urlTop = '//api.douban.com/v2/movie/top250';
@@ -43,15 +44,22 @@
       })
 
       ui.$content.click((ev) => {
-        let $item = $(ev.target).parents('.item')
-        let $id = $item.find('input').val()
-        if (id != $id) {
-          id = $id
-          ui.$details.find('.item').text("")
-          this.getDetails()
-          return
+
+        if (clickLock) {
+          clearTimeout(clickLock)
         }
-        this.showDetails();
+        var _this = this
+        clickLock = setTimeout(() => {
+          let $item = $(ev.target).parents('.item')
+          let $id = $item.find('input').val()
+          if (id != $id) {
+            id = $id
+            ui.$details.find('.item').text("")
+            _this.getDetails()
+            return
+          }
+          _this.showDetails();
+        }, 300);
       })
 
       ui.$back.click((event) => {
@@ -315,7 +323,7 @@
     , showDetails: function () {
       ui.$details.animate({
         left: 0,
-      }, 1000)
+      }, 1000)   
     }
     , closeDetails: function () {
       ui.$details.animate({
