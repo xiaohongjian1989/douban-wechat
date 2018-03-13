@@ -214,7 +214,6 @@
           },
           dataType: 'jsonp'
         }).done(function (result) {
-          console.log(result)
           if (index === 0) {
             _this.setTopData($section, result)
           } else if (index === 1) {
@@ -287,6 +286,8 @@
           dataType: 'jsonp'
         }).done(function (result) {
           _this.setDetails(result)
+        }).error(() => {
+          console.log('error')
         }).always(function() {
           ui.$details.find('.loading').hide();
         })
