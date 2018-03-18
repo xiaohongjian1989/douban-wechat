@@ -29,7 +29,7 @@
     background-color: #fff;
   }
 
-  main,
+  /* main, */
   section {
     height: calc(100vh - 50px);
     overflow: scroll;
